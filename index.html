@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car tire rims</title>
+    <link href="src/css/bootstrap.min.css" rel="stylesheet">
+    <script src="src/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/jquery-3.6.0.min.js"></script>
+    <script src="src/js/fabric.min.js"></script>
+</head>
+<body class="bg-light">
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><h3>Car tire rims</h3></li>
+            </ul>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-warning">Change your desired car tire rims</button>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item dropdown p-3">
+                    <a class="nav-link active dropdown-toggle h5" href="#" id="dropdown01" data-bs-toggle="dropdown"
+                       aria-expanded="false">Car</a>
+                    <ul id="cars" class="dropdown-menu" aria-labelledby="dropdown03">
+                        <li><a class="dropdown-item" href="#">Benz</a></li>
+                        <li><a class="dropdown-item" href="#">BMW</a></li>
+                        <li><a class="dropdown-item" href="#">Peugeot-206</a></li>
+                        <li><a class="dropdown-item" href="#">Peugeot-405</a></li>
+                        <li><a class="dropdown-item" href="#">Peykan</a></li>
+                        <li><a class="dropdown-item" href="#">Pride</a></li>
+                        <li><a class="dropdown-item" href="#">Renault</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<div style="display: inline-block">
+    <p>
+        &nbsp;
+        <button class="btn btn-dark" onclick="Add('benz')">Add benz</button>
+        <button class="btn btn-dark" onclick="Add('bmw')">Add bmw</button>
+    </p>
+</div>
+<div id="board">
+    <canvas id="c" style="border:1px solid #ccc;" width="1400" height="400"></canvas>
+    <img src="src/images/cars/Benz.jpeg" id="benz" style="display: none">
+    <img src="src/images/cars/BMW.jpeg" id="bmw" style="display: none">
+</div>
+<script>
+    $('ul#cars li a').on('click', function (e) {
+        document.getElementById('board').style.background='url(src/images/cars/' + $(this).html() + '.jpeg) no-repeat center center fixed';
+    })
+    let canvas = this.__canvas = new fabric.Canvas('c');
+    // create a rect object
+    let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
+
+    let img = document.createElement('img');
+    img.src = deleteIcon;
+
+    fabric.Object.prototype.transparentCorners = false;
+    fabric.Object.prototype.cornerColor = 'blue';
+    fabric.Object.prototype.cornerStyle = 'circle';
+
+    function Add(ring) {
+        // var rect = new fabric.Rect({
+        //     left: 100,
+        //     top: 50,
+        //     fill: 'yellow',
+        //     width: 200,
+        //     height: 100,
+        //     objectCaching: false,
+        //     stroke: 'lightgreen',
+        //     strokeWidth: 4,
+        // });
+
+        let imgElement = document.getElementById(ring);
+        let imgInstance = new fabric.Image(imgElement, {
+            left: 100,
+            top: 100,
+            opacity: 1
+        });
+
+        canvas.add(imgInstance);
+        canvas.setActiveObject(imgInstance);
+    }
+
+    fabric.Object.prototype.controls.deleteControl = new fabric.Control({
+        x: 0.5,
+        y: -0.5,
+        offsetY: 16,
+        cursorStyle: 'pointer',
+        mouseUpHandler: deleteObject,
+        render: renderIcon,
+        cornerSize: 24
+    });
+
+    Add();
+
+    function deleteObject(eventData, transform) {
+        var target = transform.target;
+        var canvas = target.canvas;
+        canvas.remove(target);
+        canvas.requestRenderAll();
+    }
+
+    function renderIcon(ctx, left, top, styleOverride, fabricObject) {
+        var size = this.cornerSize;
+        ctx.save();
+        ctx.translate(left, top);
+        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
+        ctx.drawImage(img, -size / 2, -size / 2, size, size);
+        ctx.restore();
+    }
+</script>
+</body>
+</html>
