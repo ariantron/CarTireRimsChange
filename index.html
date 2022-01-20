@@ -71,11 +71,13 @@
 <div style="display: inline-block">
     <p style="font-weight: bold">
         &nbsp;
-        Car Image Move ->
+        &nbsp;
         <button class="btn btn-primary" onclick="move('top')">↑</button>
         <button class="btn btn-success" onclick="move('right')">→</button>
         <button class="btn btn-secondary" onclick="move('bottom')">↓</button>
         <button class="btn btn-info" onclick="move('left')">←</button>
+        <button class="btn btn-warning" onclick="move('clock')">↷</button>
+        <button class="btn btn-danger" onclick="move('clockwise')">↶</button>
     </p>
 </div>
 <div id="board">
@@ -150,11 +152,13 @@
     }
 
     function move(action) {
-        let position = document.getElementById('board').style.backgroundPosition;
+        let element = document.getElementById('board')
+        let position = element.style.backgroundPosition;
         position = position.replaceAll('%', '');
         let positionArray = position.split(" ");
         let x = parseInt(positionArray[0])
         let y = parseInt(positionArray[1])
+        let degree = getCurrentRotation(element)
         switch (action) {
             case "top":
                 y = y - 10;
@@ -168,10 +172,40 @@
             case "left":
                 x = x - 10
                 break;
+            case "clock":
+                degree += 10
+                element.style.transform = "rotate(" + degree + "deg)"
+                break;
+            case "clockwise":
+                degree -= 10
+                element.style.transform = "rotate(" + degree + "deg)"
+                break;
             default:
                 break;
         }
-        document.getElementById('board').style.backgroundPosition = x + "% " + y + "%"
+        element.style.backgroundPosition = x + "% " + y + "%"
+    }
+
+    function getCurrentRotation(el) {
+        var st = window.getComputedStyle(el, null);
+        var tm = st.getPropertyValue("-webkit-transform") ||
+            st.getPropertyValue("-moz-transform") ||
+            st.getPropertyValue("-ms-transform") ||
+            st.getPropertyValue("-o-transform") ||
+            st.getPropertyValue("transform") ||
+            "none";
+        if (tm != "none") {
+            var values = tm.split('(')[1].split(')')[0].split(',');
+            /*
+            a = values[0];
+            b = values[1];
+            angle = Math.round(Math.atan2(b,a) * (180/Math.PI));
+            */
+            //return Math.round(Math.atan2(values[1],values[0]) * (180/Math.PI)); //this would return negative values the OP doesn't wants so it got commented and the next lines of code added
+            var angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
+            return (angle < 0 ? angle + 360 : angle); //adding 360 degrees here when angle < 0 is equivalent to adding (2 * Math.PI) radians before
+        }
+        return 0;
     }
 </script>
 </body>
