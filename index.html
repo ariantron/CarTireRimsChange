@@ -35,13 +35,16 @@
                     <a class="nav-link active dropdown-toggle h5" href="#" id="dropdown01" data-bs-toggle="dropdown"
                        aria-expanded="false">Car</a>
                     <ul id="cars" class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" href="#">Benz</a></li>
-                        <li><a class="dropdown-item" href="#">BMW</a></li>
-                        <li><a class="dropdown-item" href="#">Peugeot-206</a></li>
-                        <li><a class="dropdown-item" href="#">Peugeot-405</a></li>
-                        <li><a class="dropdown-item" href="#">Peykan</a></li>
-                        <li><a class="dropdown-item" href="#">Pride</a></li>
-                        <li><a class="dropdown-item" href="#">Renault</a></li>
+                        <li><a class="dropdown-item">Benz-truck</a></li>
+                        <li><a class="dropdown-item">Benz-w124</a></li>
+                        <li><a class="dropdown-item">BMW-e34</a></li>
+                        <li><a class="dropdown-item">BMW-e46</a></li>
+                        <li><a class="dropdown-item">Peugeot-206</a></li>
+                        <li><a class="dropdown-item">Peugeot-405</a></li>
+                        <li><a class="dropdown-item">Pickup</a></li>
+                        <li><a class="dropdown-item">Pride</a></li>
+                        <li><a class="dropdown-item">Renault</a></li>
+                        <li><a class="dropdown-item">Scania-truck</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,20 +53,37 @@
 </nav>
 <br>
 <div style="display: inline-block">
-    <p>
+    <p style="font-weight: bold">
         &nbsp;
-        <button class="btn btn-dark" onclick="Add('benz')">Add benz</button>
-        <button class="btn btn-dark" onclick="Add('bmw')">Add bmw</button>
+        Add ring ->
+        <button class="btn btn-dark" onclick="Add('ring1')">ring 1</button>
+        <button class="btn btn-dark" onclick="Add('ring2')">ring 2</button>
+        <button class="btn btn-dark" onclick="Add('ring3')">ring 3</button>
+        <button class="btn btn-dark" onclick="Add('ring4')">ring 4</button>
+        <button class="btn btn-dark" onclick="Add('ring5')">ring 5</button>
+        <button class="btn btn-dark" onclick="Add('ring6')">ring 6</button>
+        <button class="btn btn-dark" onclick="Add('ring7')">ring 7</button>
+        <button class="btn btn-dark" onclick="Add('ring8')">ring 8</button>
+        <button class="btn btn-dark" onclick="Add('ring9')">ring 9</button>
+        <button class="btn btn-dark" onclick="Add('ring10')">ring 10</button>
     </p>
 </div>
 <div id="board">
-    <canvas id="c" style="border:1px solid #ccc;" width="1400" height="400"></canvas>
-    <img src="src/images/cars/Benz.jpeg" id="benz" style="display: none">
-    <img src="src/images/cars/BMW.jpeg" id="bmw" style="display: none">
+    <canvas id="c" style="border:1px solid #ccc;" width="2000" height="500"></canvas>
+    <img src="src/images/rims/ring1.png" id="ring1" style="display: none">
+    <img src="src/images/rims/ring2.png" id="ring2" style="display: none">
+    <img src="src/images/rims/ring3.png" id="ring3" style="display: none">
+    <img src="src/images/rims/ring4.png" id="ring4" style="display: none">
+    <img src="src/images/rims/ring5.png" id="ring5" style="display: none">
+    <img src="src/images/rims/ring6.png" id="ring6" style="display: none">
+    <img src="src/images/rims/ring7.png" id="ring7" style="display: none">
+    <img src="src/images/rims/ring8.png" id="ring8" style="display: none">
+    <img src="src/images/rims/ring9.png" id="ring9" style="display: none">
+    <img src="src/images/rims/ring10.png" id="ring10" style="display: none">
 </div>
 <script>
     $('ul#cars li a').on('click', function (e) {
-        document.getElementById('board').style.background='url(src/images/cars/' + $(this).html() + '.jpeg) no-repeat center center fixed';
+        document.getElementById('board').style.background='url(src/images/cars/' + $(this).html() + '.png) no-repeat center center fixed';
     })
     let canvas = this.__canvas = new fabric.Canvas('c');
     // create a rect object
