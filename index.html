@@ -47,6 +47,22 @@
                         <li><a class="dropdown-item">Scania-truck</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown p-3">
+                    <a class="nav-link active dropdown-toggle h5" href="#" id="dropdown01" data-bs-toggle="dropdown"
+                       aria-expanded="false">Ring</a>
+                    <ul id="rings" class="dropdown-menu" aria-labelledby="dropdown03">
+                        <li><a class="dropdown-item">ring1</a></li>
+                        <li><a class="dropdown-item">ring2</a></li>
+                        <li><a class="dropdown-item">ring3</a></li>
+                        <li><a class="dropdown-item">ring4</a></li>
+                        <li><a class="dropdown-item">ring5</a></li>
+                        <li><a class="dropdown-item">ring6</a></li>
+                        <li><a class="dropdown-item">ring7</a></li>
+                        <li><a class="dropdown-item">ring8</a></li>
+                        <li><a class="dropdown-item">ring9</a></li>
+                        <li><a class="dropdown-item">ring10</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -55,21 +71,15 @@
 <div style="display: inline-block">
     <p style="font-weight: bold">
         &nbsp;
-        Add ring ->
-        <button class="btn btn-dark" onclick="Add('ring1')">ring 1</button>
-        <button class="btn btn-dark" onclick="Add('ring2')">ring 2</button>
-        <button class="btn btn-dark" onclick="Add('ring3')">ring 3</button>
-        <button class="btn btn-dark" onclick="Add('ring4')">ring 4</button>
-        <button class="btn btn-dark" onclick="Add('ring5')">ring 5</button>
-        <button class="btn btn-dark" onclick="Add('ring6')">ring 6</button>
-        <button class="btn btn-dark" onclick="Add('ring7')">ring 7</button>
-        <button class="btn btn-dark" onclick="Add('ring8')">ring 8</button>
-        <button class="btn btn-dark" onclick="Add('ring9')">ring 9</button>
-        <button class="btn btn-dark" onclick="Add('ring10')">ring 10</button>
+        Car Image Move ->
+        <button class="btn btn-primary" onclick="move('top')">↑</button>
+        <button class="btn btn-success" onclick="move('right')">→</button>
+        <button class="btn btn-secondary" onclick="move('bottom')">↓</button>
+        <button class="btn btn-info" onclick="move('left')">←</button>
     </p>
 </div>
 <div id="board">
-    <canvas id="c" style="border:1px solid #ccc;" width="2000" height="500"></canvas>
+    <canvas id="c" style="border:1px solid #ccc;" width="1550" height="400"></canvas>
     <img src="src/images/rims/ring1.png" id="ring1" style="display: none">
     <img src="src/images/rims/ring2.png" id="ring2" style="display: none">
     <img src="src/images/rims/ring3.png" id="ring3" style="display: none">
@@ -83,7 +93,11 @@
 </div>
 <script>
     $('ul#cars li a').on('click', function (e) {
-        document.getElementById('board').style.background='url(src/images/cars/' + $(this).html() + '.png) no-repeat center center fixed';
+        document.getElementById('board').style.background = 'url(src/images/cars/' + $(this).html() + '.png) no-repeat 50% 50%';
+    })
+    $('ul#rings li a').on('click', function (e) {
+        Add($(this).html());
+        Add($(this).html());
     })
     let canvas = this.__canvas = new fabric.Canvas('c');
     // create a rect object
@@ -97,16 +111,6 @@
     fabric.Object.prototype.cornerStyle = 'circle';
 
     function Add(ring) {
-        // var rect = new fabric.Rect({
-        //     left: 100,
-        //     top: 50,
-        //     fill: 'yellow',
-        //     width: 200,
-        //     height: 100,
-        //     objectCaching: false,
-        //     stroke: 'lightgreen',
-        //     strokeWidth: 4,
-        // });
 
         let imgElement = document.getElementById(ring);
         let imgInstance = new fabric.Image(imgElement, {
@@ -129,22 +133,45 @@
         cornerSize: 24
     });
 
-    Add();
-
     function deleteObject(eventData, transform) {
-        var target = transform.target;
-        var canvas = target.canvas;
+        let target = transform.target;
+        let canvas = target.canvas;
         canvas.remove(target);
         canvas.requestRenderAll();
     }
 
     function renderIcon(ctx, left, top, styleOverride, fabricObject) {
-        var size = this.cornerSize;
+        let size = this.cornerSize;
         ctx.save();
         ctx.translate(left, top);
         ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
         ctx.drawImage(img, -size / 2, -size / 2, size, size);
         ctx.restore();
+    }
+
+    function move(action) {
+        let position = document.getElementById('board').style.backgroundPosition;
+        position = position.replaceAll('%', '');
+        let positionArray = position.split(" ");
+        let x = parseInt(positionArray[0])
+        let y = parseInt(positionArray[1])
+        switch (action) {
+            case "top":
+                y = y - 10;
+                break;
+            case "bottom":
+                y = y + 10
+                break;
+            case "right":
+                x = x + 10
+                break;
+            case "left":
+                x = x - 10
+                break;
+            default:
+                break;
+        }
+        document.getElementById('board').style.backgroundPosition = x + "% " + y + "%"
     }
 </script>
 </body>
