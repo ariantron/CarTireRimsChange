@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Car tire rims</title>
-    <link href="src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="src/js/bootstrap.bundle.min.js"></script>
     <script src="src/js/jquery-3.6.0.min.js"></script>
     <script src="src/js/fabric.min.js"></script>
+    <script src="https://unpkg.com/merge-images"></script>
 </head>
 <body class="bg-light">
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><h3>Car tire rims</h3></li>
+                <li><h3>Car Tire Rims</h3></li>
             </ul>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-warning" style="pointer-events: none;">Change your desired car tire rims</button>
-            </div>
         </div>
     </div>
 </header>
@@ -32,145 +30,89 @@
         <div class="collapse navbar-collapse" id="navbarsExample03">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                 <li class="nav-item dropdown p-3">
-                    <a class="nav-link active dropdown-toggle h5" href="#" id="dropdown01" data-bs-toggle="dropdown"
+                    <a class="nav-link active dropdown-toggle h5" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">Car</a>
                     <ul id="cars" class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item">Benz-truck</a></li>
-                        <li><a class="dropdown-item">Benz-w124</a></li>
-                        <li><a class="dropdown-item">BMW-e34</a></li>
-                        <li><a class="dropdown-item">BMW-e46</a></li>
-                        <li><a class="dropdown-item">Peugeot-206</a></li>
-                        <li><a class="dropdown-item">Peugeot-405</a></li>
-                        <li><a class="dropdown-item">Pickup</a></li>
-                        <li><a class="dropdown-item">Pride</a></li>
-                        <li><a class="dropdown-item">Renault</a></li>
-                        <li><a class="dropdown-item">Scania-truck</a></li>
+                        <li><a class="dropdown-item">BMW_e34</a></li>
+                        <li><a class="dropdown-item">BMW_e46</a></li>
                     </ul>
+                    <span id="car-badge" class="badge"></span>
                 </li>
                 <li class="nav-item dropdown p-3">
-                    <a class="nav-link active dropdown-toggle h5" href="#" id="dropdown01" data-bs-toggle="dropdown"
+                    <a class="nav-link active dropdown-toggle h5" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">Ring</a>
                     <ul id="rings" class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item">ring1</a></li>
-                        <li><a class="dropdown-item">ring2</a></li>
                         <li><a class="dropdown-item">ring3</a></li>
                         <li><a class="dropdown-item">ring4</a></li>
-                        <li><a class="dropdown-item">ring5</a></li>
-                        <li><a class="dropdown-item">ring6</a></li>
-                        <li><a class="dropdown-item">ring7</a></li>
-                        <li><a class="dropdown-item">ring8</a></li>
-                        <li><a class="dropdown-item">ring9</a></li>
-                        <li><a class="dropdown-item">ring10</a></li>
                     </ul>
+                    <span id="ring-badge" class="badge"></span>
+                </li>
+                <li style="padding-top: 20px;padding-left: 20px">
+                    <button type="button" class="btn btn-warning" onclick="show()">
+                        Show Car !
+                    </button>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<br>
-<div style="display: inline-block">
-    <p style="font-weight: bold">
-        &nbsp;
-        &nbsp;
-        <button class="btn btn-primary" onclick="move('top')">↑</button>
-        <button class="btn btn-success" onclick="move('right')">→</button>
-        <button class="btn btn-secondary" onclick="move('bottom')">↓</button>
-        <button class="btn btn-info" onclick="move('left')">←</button>
-        <button class="btn btn-warning" onclick="move('clock')">↷</button>
-        <button class="btn btn-danger" onclick="move('clockwise')">↶</button>
-    </p>
+<div style="display: inline-block;padding-left: 20px;padding-top: 15px">
+    <button class="btn btn-dark" onclick="move('top')">↑</button>
+    <button class="btn btn-dark" onclick="move('right')">→</button>
+    <button class="btn btn-dark" onclick="move('bottom')">↓</button>
+    <button class="btn btn-dark" onclick="move('left')">←</button>
+    <button class="btn btn-dark" onclick="move('clockwise')">↶</button>
+    <button class="btn btn-dark" onclick="move('clock')">↷</button>
 </div>
-<div id="board">
-    <canvas id="c" width="1550" height="400"></canvas>
-    <img src="src/images/rims/ring1.png" id="ring1" style="display: none">
-    <img src="src/images/rims/ring2.png" id="ring2" style="display: none">
-    <img src="src/images/rims/ring3.png" id="ring3" style="display: none">
-    <img src="src/images/rims/ring4.png" id="ring4" style="display: none">
-    <img src="src/images/rims/ring5.png" id="ring5" style="display: none">
-    <img src="src/images/rims/ring6.png" id="ring6" style="display: none">
-    <img src="src/images/rims/ring7.png" id="ring7" style="display: none">
-    <img src="src/images/rims/ring8.png" id="ring8" style="display: none">
-    <img src="src/images/rims/ring9.png" id="ring9" style="display: none">
-    <img src="src/images/rims/ring10.png" id="ring10" style="display: none">
+<hr style="height: 2px;">
+<div style="height: 200px">
+    <img id="img"
+         style="margin-right: auto;margin-left: auto;display: block;padding-top: 0;padding-right: 0;padding-bottom: 0;padding-left: 0">
 </div>
 <script>
+
+    let cars = {
+        BMW_e34: {
+            'ring1-x': 0,
+            'ring1-y': 0,
+            'ring2-x': 100,
+            'ring2-y': 300
+        }, BMW_e46: {
+            'ring1-x': 0,
+            'ring1-y': 100,
+            'ring2-x': 100,
+            'ring2-y': 250
+        }
+    };
+
     $('ul#cars li a').on('click', function (e) {
-        document.getElementById('board').style.background = 'url(src/images/cars/' + $(this).html() + '.png) no-repeat 50% 50%';
+        let car = $(this).html()
+        document.getElementById('car-badge').innerHTML = car
     })
+
     $('ul#rings li a').on('click', function (e) {
-        Add($(this).html());
-        Add($(this).html());
+        let ring = $(this).html()
+        document.getElementById('ring-badge').innerHTML = ring
     })
-    let canvas = this.__canvas = new fabric.Canvas('c');
-    // create a rect object
-    let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
-
-    let img = document.createElement('img');
-    img.src = deleteIcon;
-
-    fabric.Object.prototype.transparentCorners = false;
-    fabric.Object.prototype.cornerColor = 'blue';
-    fabric.Object.prototype.cornerStyle = 'circle';
-
-    function Add(ring) {
-
-        let imgElement = document.getElementById(ring);
-        let imgInstance = new fabric.Image(imgElement, {
-            left: 100,
-            top: 100,
-            opacity: 1
-        });
-
-        canvas.add(imgInstance);
-        canvas.setActiveObject(imgInstance);
-    }
-
-    fabric.Object.prototype.controls.deleteControl = new fabric.Control({
-        x: 0.5,
-        y: -0.5,
-        offsetY: 16,
-        cursorStyle: 'pointer',
-        mouseUpHandler: deleteObject,
-        render: renderIcon,
-        cornerSize: 24
-    });
-
-    function deleteObject(eventData, transform) {
-        let target = transform.target;
-        let canvas = target.canvas;
-        canvas.remove(target);
-        canvas.requestRenderAll();
-    }
-
-    function renderIcon(ctx, left, top, styleOverride, fabricObject) {
-        let size = this.cornerSize;
-        ctx.save();
-        ctx.translate(left, top);
-        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-        ctx.drawImage(img, -size / 2, -size / 2, size, size);
-        ctx.restore();
-    }
 
     function move(action) {
-        let element = document.getElementById('board')
-        let position = element.style.backgroundPosition;
-        position = position.replaceAll('%', '');
-        let positionArray = position.split(" ");
-        let x = parseInt(positionArray[0])
-        let y = parseInt(positionArray[1])
+        let element = document.getElementById('img')
+        let paddingTop = parseInt(element.style.paddingTop.replace('px', ''));
+        let paddingRight = parseInt(element.style.paddingRight.replace('px', ''));
+        let paddingLeft = parseInt(element.style.paddingLeft.replace('px', ''));
         let degree = getCurrentRotation(element)
         switch (action) {
             case "top":
-                y = y - 10;
+                paddingTop -= 10;
                 break;
             case "bottom":
-                y = y + 10
+                paddingTop += 10
                 break;
             case "right":
-                x = x + 10
+                paddingLeft += 10
                 break;
             case "left":
-                x = x - 10
+                paddingRight += 10
                 break;
             case "clock":
                 degree += 10
@@ -183,7 +125,37 @@
             default:
                 break;
         }
-        element.style.backgroundPosition = x + "% " + y + "%"
+        element.style.paddingTop = paddingTop + "px"
+        element.style.paddingLeft = paddingLeft + "px"
+        element.style.paddingRight = paddingRight + "px"
+    }
+
+    function show() {
+        let car = document.getElementById('car-badge').innerHTML
+        let ring = document.getElementById('ring-badge').innerHTML
+        if (car == '' || ring == '') {
+            alert('The car and their rings must be specified!')
+        } else {
+            merge(car, ring)
+        }
+    }
+
+    function merge(car, ring) {
+        let car_src = 'src/images/cars/' + car + '.png'
+        let ring_src = 'src/images/rims/' + ring + '.png'
+        mergeImages([
+            {src: car_src, x: 0, y: 0},
+            {
+                src: ring_src,
+                x: cars[car]['ring1-x'],
+                y: cars[car]['ring1-y']
+            },
+            {
+                src: ring_src,
+                x: cars[car]['ring2-x'],
+                y: cars[car]['ring2-y']
+            },
+        ]).then(b64 => document.getElementById('img').src = b64);
     }
 
     function getCurrentRotation(el) {
@@ -195,18 +167,19 @@
             st.getPropertyValue("transform") ||
             "none";
         if (tm != "none") {
-            var values = tm.split('(')[1].split(')')[0].split(',');
+            let values = tm.split('(')[1].split(')')[0].split(',');
             /*
             a = values[0];
             b = values[1];
             angle = Math.round(Math.atan2(b,a) * (180/Math.PI));
             */
             //return Math.round(Math.atan2(values[1],values[0]) * (180/Math.PI)); //this would return negative values the OP doesn't wants so it got commented and the next lines of code added
-            var angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
+            let angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
             return (angle < 0 ? angle + 360 : angle); //adding 360 degrees here when angle < 0 is equivalent to adding (2 * Math.PI) radians before
         }
         return 0;
     }
+
 </script>
 </body>
 </html>
