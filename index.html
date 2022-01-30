@@ -32,8 +32,12 @@
                     <a class="nav-link active dropdown-toggle h5" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">Car</a>
                     <ul id="cars" class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item">BMW_e34</a></li>
-                        <li><a class="dropdown-item">BMW_e46</a></li>
+
+                        <li><a class="dropdown-item">206</a></li>
+                        <li><a class="dropdown-item">405</a></li>
+                        <li><a class="dropdown-item">pride</a></li>
+                        <li><a class="dropdown-item">vanet</a></li>
+
                     </ul>
                     <span id="car-badge" class="badge"></span>
                 </li>
@@ -41,8 +45,10 @@
                     <a class="nav-link active dropdown-toggle h5" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">Ring</a>
                     <ul id="rings" class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item">ring3</a></li>
-                        <li><a class="dropdown-item">ring4</a></li>
+                        <li><a class="dropdown-item">6par15'fagh70</a></li>
+                        <li><a class="dropdown-item">8par14'fagh60</a></li>
+                        <li><a class="dropdown-item">offroad20'fagh85</a></li>
+                        <li><a class="dropdown-item">tak28'fagh115</a></li>
                     </ul>
                     <span id="ring-badge" class="badge"></span>
                 </li>
@@ -71,16 +77,30 @@
 <script>
 
     let cars = {
-        BMW_e34: {
-            'ring1-x': 0,
-            'ring1-y': 0,
-            'ring2-x': 100,
-            'ring2-y': 300
-        }, BMW_e46: {
-            'ring1-x': 0,
+
+        206: {
+            'ring1-x': 45,
             'ring1-y': 100,
-            'ring2-x': 100,
-            'ring2-y': 250
+            'ring2-x': 385,
+            'ring2-y': 100
+        },
+        405: {
+            'ring1-x': 11,
+            'ring1-y': 122,
+            'ring2-x': 370,
+            'ring2-y': 122
+        },
+        pride: {
+            'ring1-x': 28,
+            'ring1-y': 122,
+            'ring2-x': 360,
+            'ring2-y': 122
+        },
+        vanet: {
+            'ring1-x': 24,
+            'ring1-y': 122,
+            'ring2-x': 398,
+            'ring2-y': 122
         }
     };
 
@@ -100,6 +120,7 @@
         let paddingRight = parseInt(element.style.paddingRight.replace('px', ''));
         let paddingLeft = parseInt(element.style.paddingLeft.replace('px', ''));
         let degree = getCurrentRotation(element)
+        let degree_step = 2;
         switch (action) {
             case "top":
                 paddingTop -= 10;
@@ -114,16 +135,15 @@
                 paddingRight += 10
                 break;
             case "clock":
-                degree += 10
-                element.style.transform = "rotate(" + degree + "deg)"
+                degree += degree_step
                 break;
             case "clockwise":
-                degree -= 10
-                element.style.transform = "rotate(" + degree + "deg)"
+                degree -= degree_step
                 break;
             default:
                 break;
         }
+        element.style.transform = "rotate(" + degree + "deg)"
         element.style.paddingTop = paddingTop + "px"
         element.style.paddingLeft = paddingLeft + "px"
         element.style.paddingRight = paddingRight + "px"
